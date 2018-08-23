@@ -1,4 +1,29 @@
 <?php
+
+add_filter('qqworld-collector-save-remove-image-external-link', 'save_external_link', 10, 2);
+function save_external_link($content, $link) {
+	$content = '<a href="'.$link.'" target="_blank" rel="nofollow">Original Link</a>';
+	return $content;
+}
+
+add_filter( 'qqworld-collector-cloud-storage-resize-size', 'my_resize', 10, 2 );
+function my_resize($size, $url=null) {
+	$size = array(400, 300);
+	return $size;
+}
+
+add_filter( 'qqworld-collector-save-remote-image-additional-content-before', 'additional_content_before', 10, 4 );
+function additional_content_before($content, $attachment_id, $post_id, $orginal_url ) {
+	$content = '<img src="' . $orginal_url . '">';
+	return $content;
+}
+// 输出源图
+add_filter( 'qqworld-collector-save-remote-image-additional-content-after', 'additional_content_after', 10, 4 );
+function additional_content_after($content, $attachment_id, $post_id, $orginal_url ) {
+	$content = '<img src="' . $orginal_url . '">';
+	return $content;
+}
+
 /**
  * Kratos functions and definitions
  *
@@ -55,18 +80,18 @@ add_filter('the_content', 'my_formatter', 99);
 function kratos_theme_scripts() {  
     $dir = get_template_directory_uri(); 
     if ( !is_admin() ) {  
-        wp_enqueue_style( 'animate', $dir . '/css/animate.min.css', array(), '3.5.1'); 
-        wp_enqueue_style( 'awesome', $dir . '/css/font-awesome.min.css', array(), '4.7.0');
-        wp_enqueue_style( 'bootstrap', $dir . '/css/bootstrap.min.css', array(), '3.3.7');
+        wp_enqueue_style( 'animate', 'https://cdn.bootcss.com/animate.css/3.5.1/animate.min.css', array(), '3.5.1'); 
+			wp_enqueue_style( 'awesome', 'https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css', array(), '4.7.0'); 
+        wp_enqueue_style( 'bootstrap', 'https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css', array(), '3.3.7');
         wp_enqueue_style( 'superfish', $dir . '/css/superfish.min.css', array(), 'r7');
         wp_enqueue_style( 'layer', $dir . '/css/layer.min.css', array(), KRATOS_VERSION);
         wp_enqueue_style( 'kratos', get_stylesheet_uri(), array(), KRATOS_VERSION);
-        wp_enqueue_script( 'jquery', $dir . '/js/jquery.min.js' , array(), '2.1.4');
+		   wp_enqueue_script( 'jquery', $dir . '/js/jquery.min.js', array(), '2.1.4'); 
         wp_enqueue_script( 'easing', $dir . '/js/jquery.easing.min.js', array(), '1.3.0'); 
         wp_enqueue_script( 'qrcode', $dir . '/js/jquery.qrcode.min.js', array(), KRATOS_VERSION);
         wp_enqueue_script( 'layer', $dir . '/js/layer.min.js', array(), '3.0.3');
         wp_enqueue_script( 'modernizr', $dir . '/js/modernizr.min.js' , array(), '2.6.2');
-        wp_enqueue_script( 'bootstrap', $dir . '/js/bootstrap.min.js', array(), '3.3.7');
+        wp_enqueue_script( 'bootstrap', 'https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js', array(), '3.3.7');
         wp_enqueue_script( 'waypoints', $dir . '/js/jquery.waypoints.min.js', array(), '4.0.0');
         wp_enqueue_script( 'stellar', $dir . '/js/jquery.stellar.min.js', array(), '0.6.2');
         wp_enqueue_script( 'hoverIntents', $dir . '/js/hoverIntent.min.js', array(), 'r7');
