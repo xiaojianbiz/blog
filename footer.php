@@ -59,6 +59,6 @@
 			}
 		</script>
 		<?php endif; ?>
-<script src="https://cdn.bbsec.xyz/bootstrap.js"></script>
+<!-- <script src="https://cdn.bbsec.xyz/bootstrap.js"></script> -->
 	</body>
 </html>

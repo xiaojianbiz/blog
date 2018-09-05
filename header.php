@@ -8,15 +8,6 @@
 ?><!DOCTYPE HTML>
 <html class="no-js">
 	<head>
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-124330355-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'UA-124330355-1');
-</script>
-<!-- Global site tag (gtag.js) - Google Analytics -->
 		<title><?php wp_title( '-', true, 'right' ); ?></title>
 		<meta charset="<?php bloginfo('charset'); ?>">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
