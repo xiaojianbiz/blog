@@ -36,7 +36,7 @@ $listlayout = (empty($listlayout)) ? 'new_layout' : $listlayout; ?>
 <?php } if($listlayout == 'new_layout'){ ?>
 <div class="kratos-entry-border-new clearfix">
 	<div class="kratos-entry-thumb-new">
-		<?php kratos_blog_thumbnail_new() ?>
+		<?php if(!wp_is_mobile()) kratos_blog_thumbnail_new();?>
 	</div>
 	<div class="kratos-post-inner-new">
 		<header class="kratos-entry-header-new">

@@ -5,7 +5,7 @@
  * @author Vtrois <seaton@vtrois.com>
  * @license GPL-3.0
  */
-if ( post_password_required() ) {
+if ( post_password_required() || wp_is_mobile() ) {
 	return;
 }
 ?>

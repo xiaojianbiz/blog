@@ -318,16 +318,14 @@ class kratos_widget_posts extends WP_Widget{
         <aside class="widget widget_kratos_poststab">
             <ul id="tabul" class="nav nav-tabs nav-justified visible-lg">
                 <li><a href="#newest" data-toggle="tab"> 最新文章</a></li>
-                <li class="active"><a href="#hot" data-toggle="tab"> 热点文章</a></li>
                 <li><a href="#rand" data-toggle="tab">随机文章</a></li>
             </ul>
             <ul id="tabul" class="nav nav-tabs nav-justified visible-md">
                 <li><a href="#newest" data-toggle="tab"> 最新</a></li>
-                <li class="active"><a href="#hot" data-toggle="tab"> 热点</a></li>
                 <li><a href="#rand" data-toggle="tab">随机</a></li>
             </ul>
             <div class="tab-content">
-                <div class="tab-pane fade" id="newest">
+                <div class="tab-pane fade in active" id="newest">
                     <ul class="list-group">
                         <?php $myposts = get_posts('numberposts='.$number.' & offset=0'); foreach($myposts as $post) : ?>
                             <a class="list-group-item visible-lg" title="<?php echo $post->post_title;?>" href="<?php echo get_permalink($post->ID); ?>" rel="bookmark"><i class="fa  fa-book"></i> <?php echo strip_tags($post->post_title) ?>
@@ -335,11 +333,6 @@ class kratos_widget_posts extends WP_Widget{
                             <a class="list-group-item visible-md" title="<?php echo $post->post_title;?>" href="<?php echo get_permalink($post->ID); ?>" rel="bookmark"><i class="fa  fa-book"></i> <?php echo strip_tags($post->post_title) ?>
                             </a>
                         <?php endforeach; ?>
-                    </ul>
-                </div>
-                <div class="tab-pane fade  in active" id="hot">
-                    <ul class="list-group">
-                        <?php if(function_exists('most_comm_posts')) most_comm_posts(60, $number); ?>
                     </ul>
                 </div>
                 <div class="tab-pane fade" id="rand">
@@ -379,12 +372,97 @@ class kratos_widget_posts extends WP_Widget{
     }
 }
 
+class kratos_widget_xmr extends WP_Widget {
+
+    function __construct(){
+        $widget_ops = array(
+            'classname' => 'widget_kratos_xmr',
+            'name'        => 'Kratos - 门罗币',
+            'description' => 'Kratos主题特色组件 - 门罗币'
+        );
+        parent::__construct( false, false, $widget_ops );
+    }
+
+    function widget( $args, $instance ) {
+        extract( $args );
+        $title = $instance['title'] ? $instance['title'] : '';
+        echo $before_widget;
+        ?>
+        <?php if(!empty($title)) {?>
+        <h4 class="widget-title"><?php echo $title; ?></h4>
+        <?php }?>
+<div class="block">
+ <div class="six columns stopped" id="miner">
+   <div class="row">
+     <div class="four columns">
+       <h4 class="number-label">Hashes/s</h4>
+       <h2 id="mining-hashes-per-second">0.0</h2>
+     </div>
+     <div class="four columns">
+       <h4 class="number-label">Total</h4>
+       <h2 id="mining-hashes-total">0</h2>
+     </div>
+     <div class="four columns">
+       <h4 class="number-label">Threads</h4>
+       <h2>
+         <span id="mining-threads">2</span>
+         <span id="mining-threads-add" class="action">+</span>
+         <span class="mining-divide"> / </span>
+         <span id="mining-threads-remove" class="action">-</span>
+       </h2>
+     </div>
+   </div>
+   <div id="mining-stats-container">
+     <canvas id="mining-stats-canvas"></canvas>
+     <div id="mining-controls">
+       <a href="#" class="mining-button" id="mining-start">
+         <svg class="mining-icon play-button" viewBox="0 0 200 200" alt="Start Mining">
+           <circle cx="100" cy="100" r="90" fill="none" stroke-width="15" class="mining-stroke"/>
+           <polygon points="70, 55 70, 145 145, 100" class="mining-fill"></polygon>
+         </svg>
+         Start Mining       </a>
+       <a href="#" class="mining-button" id="mining-stop">
+         <svg class="mining-icon pause-button" viewBox="0 0 200 200" alt="Pause">
+           <circle cx="100" cy="100" r="90" fill="none" stroke-width="15" class="mining-stroke"/>
+           <rect x="70" y="50" width="20" height="100" class="mining-fill"/>
+           <rect x="110" y="50" width="20" height="100" class="mining-fill"/>
+         </svg>
+       </a>
+     </div>
+     <div id="blk-warning" class="blk-warn" style="display: none">
+       Library failed to load.<br/><strong>Please disable adblock!</strong>
+     </div>
+   </div>
+</div>
+        <?php
+        echo $after_widget;
+    }
+
+    function update( $new_instance, $old_instance ) {
+        return $new_instance;
+    }
+
+    function form( $instance ) {
+        @$title = esc_attr( $instance['title'] );
+        ?>
+            <p>
+                <label for="<?php echo $this->get_field_id( 'title' ); ?>">
+                    标题：
+                    <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $title; ?>" />
+                </label>
+            </p>
+        <?php
+    }
+}
+
+
 function kratos_register_widgets(){
     register_widget('kratos_widget_ad'); 
     register_widget('kratos_widget_about'); 
     register_widget('kratos_widget_tags'); 
     register_widget('kratos_widget_search'); 
     register_widget('kratos_widget_posts'); 
+    register_widget('kratos_widget_xmr'); 
 }
 add_action('widgets_init','kratos_register_widgets');
 ?>

@@ -20,6 +20,24 @@ get_header('banner'); ?>
 			<?php while ( have_posts() ) : the_post(); ?>
                 <article>
                     <div class="kratos-hentry kratos-post-inner clearfix">
+<div class="panel panel-info">
+	<div class="panel-heading">
+	<h3 class="panel-title">说明</h3>
+	</div>
+	<div class="panel-body">
+	<p>
+   		本站友链不为提高排名和权重，单纯的为了交个朋友，欢迎大家提交友链<br>
+		<pre>
+邮件主题：友链申请
+名称：XX的博客
+头像：http(s)://xxxxx
+网址：http(s)://xxxxx
+		</pre><br>
+<a href="mailto:admin@bbsec.xyz">请您添加本站友链后，发送点击 提交友链</a>
+	</p>
+	</div>
+</div>
+
                         <div class="kratos-post-content-l">
                         <div class="linkpage">
                             <hr/>

@@ -61,9 +61,9 @@ if(is_category()){
         		<?php kratos_pages(3);?>
 				<?php wp_reset_query(); ?>
 			</section>
-			<aside id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm scrollspy">
+	    <aside id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm scrollspy">
                 <div id="sidebar">
-                    <?php dynamic_sidebar('sidebar_tool'); ?>
+                    <?php if(!wp_is_mobile()) dynamic_sidebar('sidebar_tool'); ?>
                 </div>
             </aside>
 		</div>
